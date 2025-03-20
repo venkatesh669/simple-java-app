@@ -4,6 +4,9 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'simple-java-app'
         DOCKER_REGISTRY = 'venkatesh86'
+       MAVEN_HOME = '/opt/apache-maven-3.9.4'  // Your Maven installation path
+        PATH = "${MAVEN_HOME}/bin:${env.PATH}"  // Add Maven to the system path
+    
     }
 
     stages {
