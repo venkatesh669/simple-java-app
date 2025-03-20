@@ -16,8 +16,8 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <!-- Replace 'com.example.Main' with your main class -->
-                            <Main-Class>com.example.Main</Main-Class>
+                            <!-- Update this to your actual main class -->
+                            <Main-Class>com.example.App</Main-Class>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -25,4 +25,3 @@
         </plugins>
     </build>
 </project>
-
