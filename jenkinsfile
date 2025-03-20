@@ -1,0 +1,64 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'simple-java-app'
+        DOCKER_REGISTRY = 'venkatesh86'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/venkatesh669/simple-java-app.git'
+            }
+        }
+
+        stage('Build with Maven') {
+            steps {
+                script {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t $DOCKER_REGISTRY/$DOCKER_IMAGE .'
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh 'docker push $DOCKER_REGISTRY/$DOCKER_IMAGE'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Deploy steps (can be customized as needed)
+                    sh 'docker run -d $DOCKER_REGISTRY/$DOCKER_IMAGE'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
+
